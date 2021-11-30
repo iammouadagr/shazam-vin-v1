@@ -1,15 +1,45 @@
-import React ,{ useState } from 'react'
+import React ,{ useState, useEffect } from 'react'
 import { StyleSheet ,View, KeyboardAvoidingView} from 'react-native'
 import { Button, Input, Image} from 'react-native-elements'
+import   firebase  from '../firebase/firebase'
+import { useDispatch } from 'react-redux'
+import { setIsAdmin,setUid,setUserName } from '../redux/slices/userSlice'
 
 
 const login = ({navigation}) => {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const dispatch = useDispatch();
+
+
+    useEffect(()=>{
+        const unsubscribe = firebase.auth().onAuthStateChanged((authUser)=>{
+            if(authUser) {
+                 navigation.replace('Dashboard');
+                 
+            }
+        });
+ 
+        return unsubscribe
+    },[])
 
     const signIn = () => {
+        firebase.auth().signInWithEmailAndPassword(email, password)
+            .then((authUser)=>{
+                dispatch(setUid(authUser.user.uid));
+                dispatch(setUserName(authUser.user.displayName));
 
+                if(authUser.user.displayName == "Admin") dispatch(setIsAdmin(true));
+                else {
+                    dispatch(setIsAdmin(false));
+                }
+                                    
+                navigation.replace("Dashboard");
+            })
+            .catch((err)=>{
+                alert(err.message);
+            })
     }
 
 
@@ -36,8 +66,8 @@ const login = ({navigation}) => {
                     />
             </View>
 
-            <Button style={styles.signInButton} title = "login" onPress={signIn}/>
-            <Button style={styles.registerButton} title= "register" onPress={()=> navigation.navigate("Register")} type="outline"/>
+            <Button style={styles.signInButton} title = "Se connecter" onPress={signIn}/>
+            <Button style={styles.registerButton} title= "S'inscrire" onPress={()=> navigation.navigate("Register")} type="outline"/>
             <View style = {{ height : 100}}/>
             
         </KeyboardAvoidingView>
