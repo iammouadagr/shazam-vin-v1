@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "564351428065",
+    "project_id": "shazam-vin-6028c",
+    "storage_bucket": "shazam-vin-6028c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:564351428065:android:ebd0d534517aba828cdea0",
+        "android_client_info": {
+          "package_name": "host.exp.exponent"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "564351428065-vg0v6uoitdmvtipbu80asmmsqobkjsea.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBNuUPhzTcJwqHGU9qe40t-_OzAe_dms6g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "564351428065-vg0v6uoitdmvtipbu80asmmsqobkjsea.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "564351428065-u4buh74ma3vrrufkqvrghbjsd37gupug.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "host.exp.exponent"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

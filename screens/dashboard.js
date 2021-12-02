@@ -65,7 +65,7 @@ const dashboard = ({navigation}) => {
         navigation.navigate("ProductList");
     }
     const scanProduct = () =>{
-
+        navigation.navigate("ScanProduct");
     }
 
     return (
@@ -89,7 +89,7 @@ const dashboard = ({navigation}) => {
         ):(
             <SafeAreaView behavior="padding" style={styles.container}>
             <Avatar size="small" rounded title="ADMIN" />
-            <Button style={styles.signOutButton} title = "Scanner" onPress={showProducts}></Button>
+            <Button style={styles.signOutButton} title = "Scanner" onPress={scanProduct}></Button>
             <Button style={styles.signOutButton} title = "Produits" onPress={showProducts}></Button>
             <Button style={styles.signOutButton} title = "Se déconnecter" onPress={signOut}>Se déconnecter</Button>
 

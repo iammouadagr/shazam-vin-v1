@@ -11,6 +11,7 @@ import dashboard from './screens/dashboard';
 import productsList from './screens/productsList';
 import singleProduct from './screens/singleProduct';
 import addNewProduct from './screens/addNewProduct';
+import scanProduct from './screens/scanProduct';
 
 
 const Stack = createNativeStackNavigator();
@@ -58,6 +59,11 @@ export default function App() {
              options ={{ title : " New Product "}}
             name ="AddNewProduct"
             component={addNewProduct}
+          />
+          <Stack.Screen 
+             options ={{ title : " Scan "}}
+            name ="ScanProduct"
+            component={scanProduct}
           />
 
         </Stack.Navigator>
