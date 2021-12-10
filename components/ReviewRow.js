@@ -5,10 +5,10 @@ import { Image } from 'react-native-elements'
 import   firebase  from '../firebase/firebase'
 
 
-const ReviewRow = ({data}) => {
+const ReviewRow = ({data,product}) => {
 
     const [user, setUser] = useState({});
-    console.log(data.user);
+    //console.log(data.user);
 
     useEffect(() => {
       firebase.firestore()
@@ -16,18 +16,54 @@ const ReviewRow = ({data}) => {
                     .doc(data.user)
                     .get()
                     .then(documentSnapshot => {
-                        console.log('User exists: ', documentSnapshot.exists);
+                        //console.log('User exists: ', documentSnapshot.exists);
                     
                         if (documentSnapshot.exists) {
-                          console.log('User data: ', documentSnapshot.data());
+                          //console.log('User data: ', documentSnapshot.data());
                           setUser(documentSnapshot.data());
 
                         }
                     })
                     .catch()
     }, [])
+
+
+    const deleteComment = (review) => {
+       
+        firebase.firestore()
+                    .collection('product')
+                    .doc(product)
+                    .update(
+                        {
+                            reviews : firebase.firestore.FieldValue.arrayRemove(review)
+                        }
+                    );
+
+    }
+
+
+
+    const checkComment = () => {
+       
+        firebase.firestore()
+                    .collection('product')
+                    .doc(product)
+                    .get()
+                    .then(documentSnapshot => {
+                            documentSnapshot.data().reviews.forEach((singleReview)=> {
+                                
+                               if(singleReview.id == data.id){
+                                
+                                deleteComment(singleReview);
+                               } 
+                            });    
+                    })
+                    .catch()
+    } 
+
+
     return (
-        <TouchableOpacity style={styles.reviewRow}>
+        <TouchableOpacity style={styles.reviewRow} onPress={checkComment}>
             <Image style={styles.userAvatar} source={require('../assets/avatar.png')}/>
             <Text style={styles.userName}>{user.displayName}</Text>
             <View style={styles.userStarSection}>

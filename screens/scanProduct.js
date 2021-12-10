@@ -27,6 +27,8 @@ const scanProduct = () => {
             try{
                 const data = await cameraRef.current.takePictureAsync({
                     allowsEditing: true,
+                    orientation: 'portrait',
+                    fixOrientation: true,
                     aspect:[4,3],
                     quality: 1,
                     base64:true

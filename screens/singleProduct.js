@@ -41,14 +41,20 @@ const singleProduct = () => {
         setModalVisible(true);
     }
 
+
+   
+
     
     const postReview = () => {
+
         setModalVisible(!modalVisible);
+        
         firebase.firestore()
                     .collection('product')
                     .doc(data.id)
                     .update({
                         reviews: firebase.firestore.FieldValue.arrayUnion({
+                            id:currentUser.uid+data.id+rating,
                             comment: comment,
                             rating: rating,
                             user: currentUser.uid
@@ -110,7 +116,7 @@ const singleProduct = () => {
                         ListHeaderComponent={isAdmin ? (null) : reviewsHeader }
                         ListHeaderComponentStyle={styles.reviewHeader}
                         renderItem={({item}) => {
-                            if(data.reviews.length > 0) return <ReviewRow key={item.id} data={item}/>
+                            if(data.reviews.length > 0) return <ReviewRow key={item.id} data={item} product={data.id}/>
 
                             return null;
                         }
@@ -118,10 +124,13 @@ const singleProduct = () => {
                             
                     />
                 </View>
-                <View style={styles.actionSection}>
-                    <Button buttonStyle={styles.editButton} title = "Modifier" onPress={editProduct}/>
-                    <Button buttonStyle={styles.deleteButton} title = "Supprimer" onPress={deleteProduct}/>
-                </View>
+                {isAdmin ? (
+                      <View style={styles.actionSection}>
+                      <Button buttonStyle={styles.editButton} title = "Modifier" onPress={editProduct}/>
+                      <Button buttonStyle={styles.deleteButton} title = "Supprimer" onPress={deleteProduct}/>
+                  </View>
+                ) : (null)}
+              
             </ScrollView>
 
             <Modal
